@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tetrimino_functions.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpodariu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/14 18:26:14 by cpodariu          #+#    #+#             */
+/*   Updated: 2017/02/14 19:05:18 by cpodariu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillitlib.h"
 
-void print_tetrimino(t_tetrimino tetrimino)
+void	print_tetrimino(t_tetrimino tetrimino)
 {
 	int i;
 	int j;
@@ -14,9 +26,10 @@ void print_tetrimino(t_tetrimino tetrimino)
 		ft_putchar('\n');
 		i++;
 	}
+	exit(0);
 }
 
-int get_neigbors(t_tetrimino tetrimino, int i, int j, char prev)
+int		get_neigbors(t_tetrimino tetrimino, int i, int j, char prev)
 {
 	int total;
 
@@ -27,12 +40,12 @@ int get_neigbors(t_tetrimino tetrimino, int i, int j, char prev)
 		total += get_neigbors(tetrimino, i, j + 1, 'W');
 	if (j >= 1 && prev != 'W')
 		total += get_neigbors(tetrimino, i, j - 1, 'E');
-	if(i <= 2)
+	if (i <= 2)
 		total += get_neigbors(tetrimino, i + 1, j, 'N');
 	return (total);
 }
 
-int is_square(t_tetrimino t, int i, int j)
+int		is_square(t_tetrimino t, int i, int j)
 {
 	if (i == 3 || j == 3)
 		return (0);
@@ -43,7 +56,7 @@ int is_square(t_tetrimino t, int i, int j)
 	return (1);
 }
 
-int validate_tetrimino(t_tetrimino tetrimino)
+int		validate_tetrimino(t_tetrimino tetrimino)
 {
 	int i;
 	int j;
@@ -69,7 +82,7 @@ int validate_tetrimino(t_tetrimino tetrimino)
 	return (1);
 }
 
-int validate3(t_tetrimino *t, int len)
+int		validate3(t_tetrimino *t, int len)
 {
 	int i;
 

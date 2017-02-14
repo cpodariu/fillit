@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fillmap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpodariu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/14 18:23:35 by cpodariu          #+#    #+#             */
+/*   Updated: 2017/02/14 18:25:55 by cpodariu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillitlib.h"
 
-void make_letters(t_tetrimino **tetriminos, int len)
+void	make_letters(t_tetrimino **tetriminos, int len)
 {
-	int i;
-	int j;
-	int q;
-	t_tetrimino *t;
+	int			i;
+	int			j;
+	int			q;
+	t_tetrimino	*t;
 
 	t = *tetriminos;
 	i = 0;
@@ -28,12 +40,12 @@ void make_letters(t_tetrimino **tetriminos, int len)
 	*tetriminos = t;
 }
 
-int is_mergeable(t_tetrimino dest, t_tetrimino src, int line, int row)
+int		is_mergeable(t_tetrimino dest, t_tetrimino src, int line, int row)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	if (line + src.lines  > dest.lines)
+	if (line + src.lines > dest.lines)
 		return (0);
 	if (row + src.rows > dest.rows)
 		return (0);
@@ -43,7 +55,8 @@ int is_mergeable(t_tetrimino dest, t_tetrimino src, int line, int row)
 		j = row;
 		while (j < src.rows + row)
 		{
-			if (dest.squares[i][j] != '.' && src.squares[i - line][j - row] != '.')
+			if (dest.squares[i][j] != '.' &&
+					src.squares[i - line][j - row] != '.')
 				return (0);
 			j++;
 		}
@@ -52,11 +65,11 @@ int is_mergeable(t_tetrimino dest, t_tetrimino src, int line, int row)
 	return (1);
 }
 
-void merge(t_tetrimino *d, t_tetrimino src, int line, int row)
+void	merge(t_tetrimino *d, t_tetrimino src, int line, int row)
 {
-	int i;
-	int j;
-	t_tetrimino dest;
+	int			i;
+	int			j;
+	t_tetrimino	dest;
 
 	dest = *d;
 	i = line;
@@ -74,14 +87,14 @@ void merge(t_tetrimino *d, t_tetrimino src, int line, int row)
 	*d = dest;
 }
 
-void trim_all(t_tetrimino **t, int len)
+void	trim_all(t_tetrimino **t, int len)
 {
-	t_tetrimino *tetriminos;
-	int i;
+	t_tetrimino	*tetriminos;
+	int			i;
 
 	tetriminos = *t;
 	i = 0;
-	while(i < len)
+	while (i < len)
 	{
 		trim_tetrimino_rows(&(tetriminos[i]));
 		trim_tetrimino_lines(&(tetriminos[i]));
@@ -91,20 +104,3 @@ void trim_all(t_tetrimino **t, int len)
 	}
 	*t = tetriminos;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

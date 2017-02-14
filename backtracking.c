@@ -1,11 +1,32 @@
-#include "fillitlib.h"
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   backtracking.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpodariu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/14 18:27:08 by cpodariu          #+#    #+#             */
+/*   Updated: 2017/02/14 19:05:20 by cpodariu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_tetrimino generate_by_size(int size)
+#include "fillitlib.h"
+
+int			square_root(int n)
 {
-	char *str;
-	t_tetrimino tetrimino;
 	int i;
+
+	i = 1;
+	while (i * i < n)
+		i++;
+	return (i);
+}
+
+t_tetrimino	generate_by_size(int size)
+{
+	char		*str;
+	t_tetrimino	tetrimino;
+	int			i;
 
 	str = (char *)malloc(sizeof(char) * size * size + 1);
 	tetrimino.lines = size;
@@ -22,11 +43,11 @@ t_tetrimino generate_by_size(int size)
 	return (tetrimino);
 }
 
-void free_map(t_tetrimino *tetrimino, int n)
+void		free_map(t_tetrimino *tetrimino, int n)
 {
-	int i;
-	int j;
-	t_tetrimino t;
+	int			i;
+	int			j;
+	t_tetrimino	t;
 
 	t = *tetrimino;
 	i = 0;
@@ -44,15 +65,15 @@ void free_map(t_tetrimino *tetrimino, int n)
 	*tetrimino = t;
 }
 
-void backtracking(t_tetrimino *the_map, t_tetrimino *t, int len, int n)
+void		backtracking(t_tetrimino *the_map, t_tetrimino *t, int len, int n)
 {
-	int i;
-	int j;
-	t_tetrimino map;
+	int			i;
+	int			j;
+	t_tetrimino	map;
 
 	map = *the_map;
 	i = 0;
-	while(i < map.lines)
+	while (i < map.lines)
 	{
 		j = 0;
 		while (j < map.rows)
@@ -62,10 +83,7 @@ void backtracking(t_tetrimino *the_map, t_tetrimino *t, int len, int n)
 			{
 				merge(&map, t[n], i, j);
 				if (len == n + 1)
-				{
 					print_tetrimino(map);
-					exit(0);
-				}
 				backtracking(&map, t, len, n + 1);
 			}
 			j++;
@@ -74,12 +92,12 @@ void backtracking(t_tetrimino *the_map, t_tetrimino *t, int len, int n)
 	}
 }
 
-void fillit(t_tetrimino *t, int len)
+void		fillit(t_tetrimino *t, int len)
 {
-	int dim;
-	t_tetrimino map;
+	int			dim;
+	t_tetrimino	map;
 
-	dim = 2;
+	dim = square_root(len * 4);
 	while (1)
 	{
 		map = generate_by_size(dim);

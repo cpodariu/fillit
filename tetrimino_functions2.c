@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tetrimino_functions2.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpodariu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/14 18:29:57 by cpodariu          #+#    #+#             */
+/*   Updated: 2017/02/14 18:40:47 by cpodariu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillitlib.h"
 
-t_tetrimino init_empty_tetrimino(int size)
+t_tetrimino	init_empty_tetrimino(int size)
 {
-	t_tetrimino t;
-	int i;
-	int j;
+	t_tetrimino	t;
+	int			i;
+	int			j;
 
 	t.squares = (char**)malloc(sizeof(char*) * size);
 	i = 0;
@@ -19,77 +31,77 @@ t_tetrimino init_empty_tetrimino(int size)
 	}
 	t.lines = size;
 	t.rows = size;
-	return t;
+	return (t);
 }
 
-void trim_tetrimino_rows(t_tetrimino *my_tetrimino)
+void		trim_tetrimino_rows(t_tetrimino *my_tetrimino)
 {
-	t_tetrimino t;
-	int i;
+	t_tetrimino	t;
+	int			i;
 
 	t = *my_tetrimino;
 	i = 0;
 	while (i < t.lines)
 		if (t.squares[i++][0] == '#')
-			return;
+			return ;
 	i = 0;
 	while (i < t.lines)
 		++t.squares[i++];
 	t.rows--;
 	*my_tetrimino = t;
-	if(t.rows > 1)
-		return trim_tetrimino_rows(my_tetrimino);
-	return;
+	if (t.rows > 1)
+		return (trim_tetrimino_rows(my_tetrimino));
+	return ;
 }
 
-void trim_tetrimino_rows2(t_tetrimino *my_tetrimino)
+void		trim_tetrimino_rows2(t_tetrimino *my_tetrimino)
 {
-	t_tetrimino t;
-	int i;
+	t_tetrimino	t;
+	int			i;
 
 	t = *my_tetrimino;
 	i = 0;
 	while (i < t.lines)
 		if (t.squares[i++][t.rows - 1] == '#')
-			return;
+			return ;
 	t.rows--;
 	*my_tetrimino = t;
 	if (t.rows > 1)
-		return trim_tetrimino_rows2(my_tetrimino);
-	return;
+		return (trim_tetrimino_rows2(my_tetrimino));
+	return ;
 }
 
-void trim_tetrimino_lines(t_tetrimino *my_tetrimino)
+void		trim_tetrimino_lines(t_tetrimino *my_tetrimino)
 {
-	t_tetrimino t;
-	int i;
+	t_tetrimino	t;
+	int			i;
 
 	t = *my_tetrimino;
 	i = 0;
 	while (i < t.rows)
 		if (t.squares[0][i++] == '#')
-			return;
+			return ;
 	++t.squares;
 	t.lines--;
 	*my_tetrimino = t;
-	if(t.lines > 1)
-		return trim_tetrimino_lines(my_tetrimino);
-	return;
+	if (t.lines > 1)
+		return (trim_tetrimino_lines(my_tetrimino));
+	return ;
 }
 
-void trim_tetrimino_lines2(t_tetrimino *my_tetrimino)
+void		trim_tetrimino_lines2(t_tetrimino *my_tetrimino)
 {
-	t_tetrimino t;
-	int i;
+	t_tetrimino	t;
+	int			i;
 
 	t = *my_tetrimino;
 	i = 0;
 	while (i < t.rows)
 		if (t.squares[t.lines - 1][i++] == '#')
-			return;
+			return ;
 	t.lines--;
 	*my_tetrimino = t;
-	if(t.lines > 1)
-		return trim_tetrimino_lines2(my_tetrimino);
-	return;
+	if (t.lines > 1)
+		return (trim_tetrimino_lines2(my_tetrimino));
+	return ;
 }

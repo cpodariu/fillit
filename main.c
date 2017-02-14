@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpodariu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/14 18:22:38 by cpodariu          #+#    #+#             */
+/*   Updated: 2017/02/14 18:23:24 by cpodariu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillitlib.h"
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
 	while (*s)
 	{
@@ -14,17 +26,17 @@ void ft_putstr(char *s)
 	}
 }
 
-void error(void)
+void	error(void)
 {
 	ft_putstr("error\n");
 	exit(0);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	char *buffer;
-	int len;
-	t_tetrimino *tetriminos;
+	char		*buffer;
+	int			len;
+	t_tetrimino	*tetriminos;
 
 	if (argc != 2)
 	{
